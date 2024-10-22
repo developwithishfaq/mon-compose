@@ -73,8 +73,8 @@ afterEvaluate {
             create<MavenPublication>("release") {
                 from(components["release"])
                 groupId = "com.github.developwithishfaq"
-                artifactId = "composeViews"
-                version = "2.1.3"
+                artifactId = "composeeViewss"
+                version = "5.0.0"
             }
         }
     }
