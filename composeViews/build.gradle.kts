@@ -59,10 +59,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     api(libs.ads)
 
-    implementation(project(":composeViews"))
-
-
-
 }
 
 
@@ -73,8 +69,8 @@ afterEvaluate {
             create<MavenPublication>("release") {
                 from(components["release"])
                 groupId = "com.github.developwithishfaq"
-                artifactId = "composeeViewss"
-                version = "5.0.0"
+                artifactId = "composeeViewwss"
+                version = "5.0.1"
             }
         }
     }
