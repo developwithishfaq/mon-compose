@@ -18,7 +18,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.monetization.adsmain.widgets.AdsUiWidget
-import com.monetization.composeviews.statefull.nativeAd.SdkNativeViewModel
+import com.monetization.composeviews.statefull.nativeAd.OnScreenAdsViewModel
 import com.monetization.core.commons.AdsCommons.logAds
 import com.monetization.core.listeners.UiAdsListener
 import com.monetization.core.ui.AdsWidgetData
@@ -35,18 +35,22 @@ fun rememberNativeAdUiWidget(
     adsWidgetData: AdsWidgetData? = null,
     requestNewOnShow: Boolean = false,
     showNewAdEveryTime: Boolean = true,
-    sdkNativeViewModel: SdkNativeViewModel = viewModel(
-        factory = GenericViewModelFactory(SdkNativeViewModel::class.java) {
-            SdkNativeViewModel()
+    onScreenAdsViewModel: OnScreenAdsViewModel = viewModel(
+        factory = GenericViewModelFactory(OnScreenAdsViewModel::class.java) {
+            OnScreenAdsViewModel()
         }
     ),
     listener: UiAdsListener? = null,
 ): AdsUiWidget {
     val lifecycleOwner = LocalSavedStateRegistryOwner.current
-    val state by sdkNativeViewModel.state.collectAsState()
-    val view = if (state.adWidgetMap[adKey] == null) {
+    val state by onScreenAdsViewModel.state.collectAsState()
+    val view = if (state.adPlacements[placementKey] == null) {
         AdsUiWidget(activity).apply {
-            attachWithLifecycle(lifecycle = lifecycleOwner.lifecycle, false)
+            attachWithLifecycle(
+                lifecycle = lifecycleOwner.lifecycle,
+                forBanner = false,
+                isJetpackCompose = true
+            )
             setWidgetKey(placementKey, adKey, adsWidgetData, true)
             showNativeAdmob(
                 activity = activity,
@@ -59,13 +63,13 @@ fun rememberNativeAdUiWidget(
             )
         }
     } else {
-        state.adWidgetMap[adKey]
+        state.adPlacements[placementKey]?.widget
     }
     return view!!
 }
 
 @Composable
-fun SdkNativeAdRefresher(
+fun SdkNativeAd(
     activity: Activity,
     placementKey: String,
     adKey: String,
@@ -76,9 +80,9 @@ fun SdkNativeAdRefresher(
     requestNewOnShow: Boolean = false,
     showNewAdEveryTime: Boolean = true,
     listener: UiAdsListener? = null,
-    sdkNativeViewModel: SdkNativeViewModel = viewModel(
-        factory = GenericViewModelFactory(SdkNativeViewModel::class.java) {
-            SdkNativeViewModel()
+    onScreenAdsViewModel: OnScreenAdsViewModel = viewModel(
+        factory = GenericViewModelFactory(OnScreenAdsViewModel::class.java) {
+            OnScreenAdsViewModel()
         }
     ),
     widget: AdsUiWidget = rememberNativeAdUiWidget(
@@ -90,7 +94,7 @@ fun SdkNativeAdRefresher(
         showShimmerLayout = showShimmerLayout,
         listener = listener,
         showNewAdEveryTime = showNewAdEveryTime,
-        sdkNativeViewModel = sdkNativeViewModel,
+        onScreenAdsViewModel = onScreenAdsViewModel,
         adsWidgetData = adsWidgetData
     ),
 ): AdsUiWidget {
@@ -114,25 +118,25 @@ fun SdkNativeAdRefresher(
         view.requestLayout()
         if (stateUpdated.not()) {
             logAds("Native Ad on Update View Called, is=${view is AdsUiWidget} View=$view")
-            sdkNativeViewModel.updateState(view, adKey)
+            onScreenAdsViewModel.updateState(view, placementKey, adKey)
             stateUpdated = true
         }
     }
     DisposableEffect(Unit) {
-        sdkNativeViewModel.setInPause(false, adKey)
+        onScreenAdsViewModel.setInPause(false, placementKey, false)
         onDispose {
-            sdkNativeViewModel.setInPause(true, adKey)
+            onScreenAdsViewModel.setInPause(true, placementKey, false)
         }
     }
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             when (event) {
                 Lifecycle.Event.ON_START -> {
-                    sdkNativeViewModel.setInPause(false, adKey)
+                    onScreenAdsViewModel.setInPause(false, placementKey, false)
                 }
 
                 Lifecycle.Event.ON_STOP -> {
-                    sdkNativeViewModel.setInPause(true, adKey)
+                    onScreenAdsViewModel.setInPause(true, placementKey, false)
                 }
 
                 else -> {}
@@ -146,6 +150,7 @@ fun SdkNativeAdRefresher(
     }
     return widget
 }
+/*
 
 @Composable
 fun SdkNativeAd(
@@ -239,4 +244,4 @@ fun SdkNativeAd(
         }
     }
 
-}
+}*/

@@ -21,7 +21,7 @@ class BaseApp : Application() {
             }
         })
         SdkConfigs.setListener(
-            object : SdkListener {
+            listener = object : SdkListener {
                 override fun canLoadAd(adType: AdType, adKey: String): Boolean {
                     return true
                 }
@@ -30,7 +30,7 @@ class BaseApp : Application() {
                     return true
                 }
             },
-            true
+            testModeEnable = true
         )
     }
 }

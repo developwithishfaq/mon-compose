@@ -3,5 +3,9 @@ package com.monetization.composeviews.statefull.nativeAd
 import com.monetization.adsmain.widgets.AdsUiWidget
 
 data class SdkNativeState(
-    val adWidgetMap: Map<String,AdsUiWidget> = mapOf(),
+    val adPlacements: Map<String,PlacementModel> = mapOf(),
+)
+data class PlacementModel(
+    val widget: AdsUiWidget,
+    val adKey: String
 )

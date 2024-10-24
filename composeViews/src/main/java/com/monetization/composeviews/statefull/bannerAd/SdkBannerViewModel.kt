@@ -7,6 +7,7 @@ import com.monetization.core.commons.AdsCommons.logAds
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+/*
 
 class SdkBannerViewModel : ViewModel() {
 
@@ -53,4 +54,4 @@ class SdkBannerViewModel : ViewModel() {
         }
     }
 
-}
+}*/

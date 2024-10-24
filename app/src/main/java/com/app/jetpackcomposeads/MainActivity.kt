@@ -1,5 +1,6 @@
 package com.app.jetpackcomposeads
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -8,6 +9,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.app.jetpackcomposeads.ui.theme.JetpackComposeAdsTheme
@@ -15,11 +20,10 @@ import com.monetization.adsmain.commons.addNewController
 import com.monetization.bannerads.AdmobBannerAdsManager
 import com.monetization.bannerads.BannerAdSize
 import com.monetization.bannerads.BannerAdType
-import com.monetization.composeviews.SdkBannerAdRefresher
-import com.monetization.composeviews.SdkNativeAdRefresher
+import com.monetization.composeviews.SdkBanner
+import com.monetization.composeviews.SdkNativeAd
 import com.monetization.core.commons.NativeTemplates
 import com.monetization.nativeads.AdmobNativeAdsManager
-import com.remote.firebaseconfigs.RemoteCommons.toConfigString
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,21 +40,33 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier
                         .fillMaxSize()
                 ) {
-                    val native = SdkNativeAdRefresher(
-                        activity = this@MainActivity,
-                        adLayout = NativeTemplates.SmallNative,
-                        adKey = "Native",
-                        placementKey = true.toConfigString()
-                    )
-                    val adWidget = SdkBannerAdRefresher(
+                    var showSecondNative by remember {
+                        mutableStateOf(false)
+                    }
+                    val banner = SdkBanner(
                         activity = this@MainActivity,
                         bannerAdType = BannerAdType.Normal(BannerAdSize.AdaptiveBanner),
                         adKey = "Banner",
-                        placementKey = true.toConfigString()
+                        placementKey = "Native1"
                     )
+                    val native = SdkNativeAd(
+                        activity = this@MainActivity,
+                        adLayout = NativeTemplates.SmallNative,
+                        adKey = "Native",
+                        placementKey = "Native1"
+                    )
+                    if (showSecondNative) {
+                        val nativeTwo = SdkBanner(
+                            activity = this@MainActivity,
+                            bannerAdType = BannerAdType.Normal(BannerAdSize.AdaptiveBanner),
+                            adKey = "Banner",
+                            placementKey = "Native2"
+                        )
+                    }
                     Button(onClick = {
-                        native.refreshAd(true, true)
-                        adWidget.refreshAd(false, true)
+//                        showSecondNative = true
+//                        native.refreshAd(isNativeAd = true, showShimmerLayout = true)
+                        startActivity(Intent(this@MainActivity, SecondActivity::class.java))
                     }) {
                         Text(text = "Refresh Ad")
                     }

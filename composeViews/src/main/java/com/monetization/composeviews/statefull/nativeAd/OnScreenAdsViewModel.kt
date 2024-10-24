@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-class SdkNativeViewModel : ViewModel() {
+class OnScreenAdsViewModel : ViewModel() {
 
     private val _state = MutableStateFlow(SdkNativeState())
     val state = _state.asStateFlow()
@@ -17,40 +17,43 @@ class SdkNativeViewModel : ViewModel() {
         Log.d("cvrr", "SdkNativeViewModel")
     }
 
-    fun updateState(widget: AdsUiWidget, adKey: String) {
-        val mapp = state.value.adWidgetMap.toMutableMap()
-        mapp[adKey] = widget
+    fun updateState(widget: AdsUiWidget, placementKey: String, adKey: String) {
+        val mapp = state.value.adPlacements.toMutableMap()
+        mapp[placementKey] = PlacementModel(
+            widget,
+            adKey
+        )
         _state.update {
             it.copy(
-                adWidgetMap = mapp
+                adPlacements = mapp
             )
         }
     }
 
-    fun destroyAdByKey(adKey: String, removeIfShown: Boolean = true) {
-        val mapp = state.value.adWidgetMap.toMutableMap()
+    fun destroyAdByKey(placementKey: String, removeIfShown: Boolean = true) {
+        val mapp = state.value.adPlacements.toMutableMap()
         val oldSize = mapp.size
         if (removeIfShown) {
-            if (mapp[adKey]?.isAdPopulated(true) == true) {
-                mapp.remove(adKey)
+            if (mapp[placementKey]?.widget?.isAdPopulated(true) == true) {
+                mapp.remove(placementKey)
             }
         } else {
-            mapp.remove(adKey)
+            mapp.remove(placementKey)
         }
         logAds("Native Widgets Size: old=${oldSize},new=${mapp.size}")
         _state.update {
             it.copy(
-                adWidgetMap = mapp
+                adPlacements = mapp
             )
         }
     }
 
-    fun setInPause(check: Boolean, key: String) {
-        val mapp = state.value.adWidgetMap.toMutableMap()
-        mapp[key]?.setInPause(check, false)
+    fun setInPause(check: Boolean, placementKey: String, forBannerAd: Boolean) {
+        val mapp = state.value.adPlacements.toMutableMap()
+        mapp[placementKey]?.widget?.setInPause(check, forBannerAd)
         _state.update {
             it.copy(
-                adWidgetMap = mapp
+                adPlacements = mapp
             )
         }
     }
