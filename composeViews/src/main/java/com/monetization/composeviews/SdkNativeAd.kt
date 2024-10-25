@@ -35,6 +35,7 @@ fun rememberNativeAdUiWidget(
     adsWidgetData: AdsWidgetData? = null,
     requestNewOnShow: Boolean = false,
     showNewAdEveryTime: Boolean = true,
+    showOnlyIfAdAvailable: Boolean = false,
     onScreenAdsViewModel: OnScreenAdsViewModel = viewModel(
         factory = GenericViewModelFactory(OnScreenAdsViewModel::class.java) {
             OnScreenAdsViewModel()
@@ -60,6 +61,7 @@ fun rememberNativeAdUiWidget(
                 oneTimeUse = showNewAdEveryTime,
                 requestNewOnShow = requestNewOnShow,
                 listener = listener,
+                showOnlyIfAdAvailable = showOnlyIfAdAvailable
             )
         }
     } else {

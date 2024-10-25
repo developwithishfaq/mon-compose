@@ -34,6 +34,7 @@ fun rememberBannerAdUiWidget(
     bannerAdType: BannerAdType,
     requestNewOnShow: Boolean = false,
     showNewAdEveryTime: Boolean = true,
+    showOnlyIfAdAvailable: Boolean = false,
     onScreenAdsViewModel: OnScreenAdsViewModel = viewModel(
         factory = GenericViewModelFactory(OnScreenAdsViewModel::class.java) {
             OnScreenAdsViewModel()
@@ -59,6 +60,7 @@ fun rememberBannerAdUiWidget(
                 oneTimeUse = showNewAdEveryTime,
                 requestNewOnShow = requestNewOnShow,
                 listener = listener,
+                showOnlyIfAdAvailable = showOnlyIfAdAvailable
             )
         }
     } else {
