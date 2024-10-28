@@ -27,7 +27,7 @@ ui = { module = "androidx.compose.ui:ui" }
 ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
 ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 material3 = { module = "androidx.compose.material3:material3" }
-ads = { module = "com.github.developwithishfaq:ads-mon", version = "0.0.12" }
+ads = { module = "com.github.developwithishfaq:ads-mon", version = "0.0.13" }
 remote = { module = "com.github.developwithishfaq:remote-config", version = "0.0.3" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
