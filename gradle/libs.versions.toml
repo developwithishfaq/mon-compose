@@ -1,18 +1,18 @@
 [versions]
 agp = "8.5.2"
 kotlin = "2.0.20"
-coreKtx = "1.13.1"
+coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.8.6"
-lifecycleViewmodelCompose = "2.8.6"
+lifecycleRuntimeKtx = "2.8.7"
+lifecycleViewmodelCompose = "2.8.7"
 activityCompose = "1.9.3"
-composeBom = "2024.10.00"
+composeBom = "2024.10.01"
 material = "1.12.0"
 appcompat = "1.7.0"
 activity = "1.9.3"
-constraintlayout = "2.1.4"
+constraintlayout = "2.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -27,7 +27,7 @@ ui = { module = "androidx.compose.ui:ui" }
 ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
 ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 material3 = { module = "androidx.compose.material3:material3" }
-ads = { module = "com.github.developwithishfaq:ads-mon", version = "0.0.13" }
+ads = { module = "com.github.developwithishfaq:ads-mon", version = "0.0.14" }
 remote = { module = "com.github.developwithishfaq:remote-config", version = "0.0.3" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }

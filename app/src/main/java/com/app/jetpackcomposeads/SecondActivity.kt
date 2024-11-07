@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.monetization.composeviews.SdkNativeAd
 import com.monetization.core.commons.NativeTemplates
+import com.monetization.core.counters.CounterManager.isCounterRegistered
 
 class SecondActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "video.downloader.composeviews"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 21
@@ -44,11 +44,6 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-//    implementation(libs.material)
-//    testImplementation(libs.junit)
-//    androidTestImplementation(libs.androidx.junit)
-//    androidTestImplementation(libs.androidx.espresso.core)
-
     implementation(platform(libs.androidx.compose.bom))
 //    implementation(libs.androidx.activity.compose)
 //    implementation(libs.ui)
