@@ -16,7 +16,7 @@ class BaseApp : Application() {
                 return null
             }
 
-            override fun isAdEnabled(placementKey: String, adKey: String): Boolean {
+            override fun isAdEnabled(placementKey: String, adKey: String, adType: AdType): Boolean {
                 return true
             }
         })

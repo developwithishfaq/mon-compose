@@ -51,7 +51,7 @@ fun rememberBannerAdUiWidget(
                 forBanner = true,
                 isJetpackCompose = true
             )
-            setWidgetKey(placementKey, adKey, null, true)
+            setWidgetKey(placementKey = placementKey, adKey =  adKey, isNativeAd = false, null, true)
             showBannerAdmob(
                 activity = activity,
                 bannerAdType = bannerAdType,

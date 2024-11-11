@@ -52,7 +52,11 @@ fun rememberNativeAdUiWidget(
                 forBanner = false,
                 isJetpackCompose = true
             )
-            setWidgetKey(placementKey, adKey, adsWidgetData, true)
+            setWidgetKey(
+                placementKey = placementKey, adKey = adKey, isNativeAd = true,
+                model = adsWidgetData,
+                defEnabled = true
+            )
             showNativeAdmob(
                 activity = activity,
                 adLayout = LayoutInfo.LayoutByName(adLayout),

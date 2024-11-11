@@ -10,7 +10,8 @@ import com.monetization.core.counters.CounterManager.isCounterRegistered
 class SecondActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {/*
+        setContent {
+            /*
             val native = SdkNativeAd(
                 activity = this@SecondActivity,
                 adLayout = NativeTemplates.SmallNative,
